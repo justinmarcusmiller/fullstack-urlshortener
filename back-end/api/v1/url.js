@@ -21,6 +21,7 @@ router.get("/create/", (req, res, next) => {
     res.json({
       message: "URL is missing or is not a valid url",
     });
+    return;
   }
 
   if (req.query.customSlug === undefined) {
@@ -30,13 +31,13 @@ router.get("/create/", (req, res, next) => {
     // todo: add to db
   } else {
     if(isAlphaNumeric(req.query.customSlug) && req.query.customSlug.length < 20) {
-      console.log(req.query.customSlug.length);
       slug = req.query.customSlug;
       // todo: add to db
     } else {
       res.json({
         message: "Invalid slug, must contain only alpha-numeric characters and be under 20 characters"
       })
+      return;
     }
   }
   res.json({
